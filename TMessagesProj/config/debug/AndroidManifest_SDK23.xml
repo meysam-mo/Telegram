@@ -22,6 +22,8 @@
     <permission android:name="org.telegram.messenger.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
     <permission android:name="org.telegram.messenger.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 
+
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
@@ -81,6 +83,8 @@
             android:name="com.google.android.gms.measurement.AppMeasurementService"
             android:enabled="false"
             android:exported="false" />
+
+
 
     </application>
 

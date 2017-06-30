@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.telegram.messenger"
     android:installLocation="auto">
 
@@ -9,6 +10,15 @@
                       android:resizeable="true"
                       android:smallScreens="true"
                       android:xlargeScreens="true"/>
+
+
+    <!--pushe-->
+
+    <uses-sdk tools:overrideLibrary="co.ronash.pushe" />
+    <permission android:name="org.telgram.messenger.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="org.telgram.messenger.permission.C2D_MESSAGE" />
+    <!-- end pushe-->
+
 
     <uses-feature android:glEsVersion="0x00020000" android:required="false"/>
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
@@ -60,6 +70,9 @@
     <uses-permission android:name="android.permission.READ_APP_BADGE"/>
     <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+
+
+
 
     <application
         android:name=".ApplicationLoader"
@@ -309,13 +322,46 @@
         <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598dp" />
         <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632dp" />
         <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598dp" />
-
         <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
-
         <meta-data android:name="com.google.android.gms.car.notification.SmallIcon" android:resource="@drawable/ic_player" />
         <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc" />
-
         <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"  />
+
+
+
+
+        <!-- pushe -->
+
+
+        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="org.telgram.messenger"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="org.telgram.messenger" />
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="co.ronash.pushe.token" android:value="PUSHE_330002222488"/>
+        <meta-data android:name="co.ronash.pushe.cr" android:value="aHR0cDovL2RiYzY1YmI5YmJmNTQyMGU4MGUzOTE3NzUwYTEzYmNiOmFmNDBiMzlkYzYwNTRkZjRhMTYzYzkwYWFmOWYyYTZmQGNhLnB1c2hlLmlyLzkyNjk="/>
+
+
+        <!-- end pushe-->
+
+
+
     </application>
 
 </manifest>

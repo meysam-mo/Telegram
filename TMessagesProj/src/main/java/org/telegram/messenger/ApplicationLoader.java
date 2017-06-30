@@ -37,6 +37,10 @@ import org.telegram.ui.Components.ForegroundDetector;
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import co.ronash.pushe.Pushe;
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;
+
 public class ApplicationLoader extends Application {
 
     @SuppressLint("StaticFieldLeak")
@@ -196,6 +200,15 @@ public class ApplicationLoader extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Pushe.initialize(this,true);
+
+        CheshmakConfig config= new CheshmakConfig();
+        config.setIsEnableAutoActivityReports(true);
+        config.setIsEnableExceptionReporting(true);
+        Cheshmak.with(this, config);
+        Cheshmak.initTracker("8BZD4N1arF5m4We/UhHSyQ==");
+
 
         applicationContext = getApplicationContext();
         NativeLoader.initNativeLibs(ApplicationLoader.applicationContext);
