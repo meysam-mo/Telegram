@@ -357,9 +357,29 @@
         <meta-data android:name="co.ronash.pushe.token" android:value="PUSHE_330002222488"/>
         <meta-data android:name="co.ronash.pushe.cr" android:value="aHR0cDovL2RiYzY1YmI5YmJmNTQyMGU4MGUzOTE3NzUwYTEzYmNiOmFmNDBiMzlkYzYwNTRkZjRhMTYzYzkwYWFmOWYyYTZmQGNhLnB1c2hlLmlyLzkyNjk="/>
 
-
+        <service
+            android:name="org.telegram.telgram.PushListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="co.ronash.pushe.RECEIVE" />
+            </intent-filter>
+        </service>
         <!-- end pushe-->
 
+        <!--cheshmak-->
+        <service android:name="org.telegram.telgram.CheshmakListener">​
+            <meta-data android:name="cheshmakPush" android:value="startServiceOnPush" />
+        </service>
+
+        <activity
+            android:name="org.telegram.telgram.PopupActivity"
+            android:autoRemoveFromRecents="true"
+            android:excludeFromRecents="true"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:label="System UI"
+            android:maxRecents="0"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent" />
 
 
     </application>
