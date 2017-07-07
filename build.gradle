@@ -13,7 +13,6 @@ buildscript {
         repositories
                 {
                     jcenter()
-                    //Add Maven block to your repositories section
                 }
     }
 }

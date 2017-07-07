@@ -10,7 +10,9 @@ package org.telegram.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -404,7 +406,7 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
         NotificationCenter.getInstance().postNotificationName(NotificationCenter.closeOtherAppActivities, this);
         currentConnectionState = ConnectionsManager.getInstance().getConnectionState();
 
-        NotificationCenter.getInstance().addObserver(this, NotificationCenter.appDidLogout);
+        /*NotificationCenter.getInstance().addObserver(this, NotificationCenter.appDidLogout);
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.mainUserInfoChanged);
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.closeOtherAppActivities);
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.didUpdatedConnectionState);
@@ -412,16 +414,28 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.wasUnableToFindCurrentLocation);
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.didSetNewWallpapper);
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.didSetPasscode);
-
-        if (actionBarLayout.fragmentsStack.isEmpty()) {
-            if (!UserConfig.isClientActivated()) {
+*/
+        if (actionBarLayout.fragmentsStack.isEmpty())
+        {
+            if (!UserConfig.isClientActivated())
+            {
                 actionBarLayout.addFragmentToStack(new LoginActivity());
                 drawerLayoutContainer.setAllowOpenDrawer(false, false);
-            } else {
+            }
+            else
+                {
                 DialogsActivity dialogsActivity = new DialogsActivity(null);
                 dialogsActivity.setSideMenu(sideMenu);
                 actionBarLayout.addFragmentToStack(dialogsActivity);
                 drawerLayoutContainer.setAllowOpenDrawer(true, false);
+
+                PackageManager pkg = getPackageManager();
+                pkg.setComponentEnabledSetting(
+                        new ComponentName(this, LaunchActivity.class),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+
+                finish();
             }
 
             try {
